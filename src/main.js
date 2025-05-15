@@ -1,10 +1,10 @@
-const scrollAmount = 50;
+const scrollAmount = 100;
 
 function openHelpPopup() {
   if (document.getElementById("vim-help-modal")) return;
 
   const iframe = document.createElement("iframe");
-  iframe.src = chrome.runtime.getURL("help.html");
+  iframe.src = chrome.runtime.getURL("resources/help.html");
   iframe.id = "vim-help-modal";
   iframe.style.cssText = `
     position: fixed;

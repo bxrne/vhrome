@@ -13,7 +13,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["resources<D-s>/help.html", "resources/help.css", "resources/<D-s>help.js"],
+      "resources": ["resources/help.html", "resources/help.css", "resources/<D-s>help.js"],
       "matches": ["<all_urls>"]
     }
   ],
