@@ -1,0 +1,41 @@
+name: Package Extension
+
+on:
+  push:
+    branches: [ main ] # Adjust if your default branch is different, or trigger on tags e.g. 'v*'
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get extension version
+        id: get_version
+        run: |
+          VERSION=$(jq -r .version manifest.json)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Create package directory
+        run: mkdir ./package_dist # Use a distinct name for the temp packaging dir
+
+      - name: Copy files to package directory
+        run: |
+          cp manifest.json ./package_dist/
+          cp -r src ./package_dist/
+          cp -r resources ./package_dist/
+          cp -r icons ./package_dist/
+          # Add any other files/folders needed for the extension here
+
+      - name: Create ZIP archive
+        run: |
+          cd ./package_dist
+          zip -r ../vhrome-v${{ steps.get_version.outputs.version }}.zip .
+          cd ..
+
+      - name: Upload ZIP artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vhrome-extension-v${{ steps.get_version.outputs.version }}
+          path: vhrome-v${{ steps.get_version.outputs.version }}.zip
