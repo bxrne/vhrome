@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "vhrome",
+  "description": "Vim-style keyboard navigation for Chrome.",
+  "version": "1.0",
+  "permissions": ["scripting"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["help.html", "help.css", "help.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "icons": {
+    "128": "icons/icon128.png"
+  }
+}
